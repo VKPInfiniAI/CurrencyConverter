@@ -45,10 +45,29 @@ class ViewController: UIViewController {
                 //2)
                 if data != nil {
                     do {
-                    let jsonResponse = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers)
+                    let jsonResponse = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers) as! Dictionary<String, Any>
+                        
                         //Async
                         DispatchQueue.main.async {
-                            print(jsonResponse)
+                            if let rates = jsonResponse["rates"] as? [String : Any] {
+                                //print(rates)
+                                if let cad = rates["CAD"] as? Double {
+                                    self.cadLabel.text = "1 Euro= \(cad) CAD"
+                                }
+                                if let usd = rates["USD"] as? Double {
+                                    self.usdLabel.text = "1 Euro= \(usd) USD"
+                                }
+                                if let gbp = rates["GBP"] as? Double {
+                                    self.gbpLabel.text = "1 Euro= \(gbp) GBP"
+                                }
+                                if let inr = rates["INR"] as? Double {
+                                    self.inrLabel.text = "1 Euro= \(inr) INR"
+                                }
+                                if let kwd = rates["KWD"] as? Double {
+                                    self.kwdLabel.text = "1 Euro= \(kwd) KWD"
+                                }
+                                
+                            }
                         }
                         
                         
